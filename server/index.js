@@ -29,6 +29,16 @@ app.get('/api/toys', (req, res) => {
   res.json(mockToys); 
 });
 
+// API to ann a new toy(Post)
+app.post('/api/toys', (req,res) => {
+    console.log("New toy data received:", req.body); // log data sent by the user
+    const newToy = req.body; // get the data
+    newToy.id = Date.now(); // assign a tempory ID
+    mockToys.push(newToy);
+    // send back the saved toy to confirm success
+    res.status(201).json(newToy);
+})
+
 // Server Listener: Starts the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
