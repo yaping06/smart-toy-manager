@@ -22,3 +22,11 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets
+.env
+server/.env
+
+# Dependencies
+node_modules/
+server/node_modules/

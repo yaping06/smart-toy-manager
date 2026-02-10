@@ -1,0 +1,89 @@
+/* Main layout container*/
+.add-toy-page {
+    background-color: #f4f7f6;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.add-toy-container {
+    width: 90%;
+    max-width: 700px;
+    padding: 20px 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    height: fit-content;
+}
+  
+.add-toy-container h2 {
+    color: #2c3e50;
+    margin-top: 0;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.8rem;
+}
+  
+  /* Form Structure using Flexbox*/
+.toy-form {
+    display: flex;
+    flex-direction: column; /*Stack groups vertically*/
+    gap: 15px;
+}
+
+.form-group { 
+    flex: 1;
+    display: flex;
+    flex-direction: column; /*Stack label above input*/
+    gap: 5px; /* Space between label and input */
+}
+  
+.form-row {
+    display: flex;
+    gap: 20px; /*Space between the two columns*/
+}
+  
+.form-row .form-group {
+    flex: 1; /* Both groups in the row take up equal width*/
+}
+  
+  
+.form-group label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #546e7a;
+    text-align: left;
+}
+
+input, select {
+    padding: 10px;
+    border: 1.5px solid #eceff1;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #3498db;
+    outline: none;
+
+}
+
+  
+.submit-btn {
+    margin-top: 10px;
+    padding: 12px;
+    background-color: #2c3e50;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+  
+.submit-btn:hover {
+    background-color: #34495e;
+  }
