@@ -14,10 +14,10 @@ router.get('/toys', async (req, res) => {
 
 router.post('/toys', async (req, res) => {
     try {
-      const { name, category, status, min_age_months, max_age_months, purchase_price, source_name, image_url, source_url, is_favorite } = req.body;
+      const { name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite } = req.body;
       const newToy = await db.query(
-        'INSERT INTO toys (name, category, status, min_age_months, max_age_months, purchase_price, source_name, image_url, source_url, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
-        [name, category, status, min_age_months, max_age_months, purchase_price, source_name, image_url, source_url, is_favorite]
+        'INSERT INTO toys (name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
+        [name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite]
       );
       res.json(newToy.rows[0]);
     } catch (err) {
@@ -32,7 +32,7 @@ router.patch('/toys/:id', async (req, res) => {
 
     try {
         const updatedToy = await db.query(
-            'UPDATE toys SET is_favoriate = $1 WHERE id = $2 RETURNING *',
+            'UPDATE toys SET is_favorite = $1 WHERE id = $2 RETURNING *',
             [is_favorite, id] 
         );
         res.json(updatedToy.rows[0]);

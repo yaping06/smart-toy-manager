@@ -9,7 +9,10 @@ const Home = () => {
 
     const [statusFilter, setStatusFilter] = useState('active'); // Default to 'active'
     const [categoryFilter, setCategoryFilter] = useState('All'); // Default to 'All'
+    const [ageFilter, setAgeFilter] = useState('All'); // Default to 'All'
     const [sortBy, setSortBy] = useState('name');              // Default to 'name'
+
+    const [savingIds, setSavingIds] = useState(new Set());
 
     useEffect(() => {
         const fetchToys = async() => {
@@ -29,24 +32,56 @@ const Home = () => {
     const filteredToys = toys
         .filter(toy => toy.status === statusFilter)
         .filter(toy => categoryFilter === 'All' ? true : toy.category === categoryFilter)
+        .filter(toy => ageFilter === 'All' ? true : toy.max_age && parseFloat(toy.max_age) <= parseFloat(ageFilter))
         .sort((a, b) => {
             if (sortBy === 'price') return a.purchase_price - b.purchase_price;
             return a.name.localeCompare(b.name);
         });
 
     // Function to handle the interactive heart click
-    const toggleFavorite = async (id, currentStatus) => {
+    const toggleFavorite = async (e, id, currentStatus) => {
+        // 1. Prevent the click from bubbling up to the card/image
+        e.preventDefault();
+        e.stopPropagation(); 
+        
+        
+        if (savingIds.has(id)) return; // block spam clicks
+        
+        // 2. Optimistic Update: Change the color instantly in the UI
+        const newStatus = !currentStatus;
+
+        setToys(prevToys => 
+            prevToys.map(toy => 
+                toy.id === id ? { ...toy, is_favorite: newStatus } : toy
+            )
+        );
+
+        setSavingIds(prev => new Set(prev).add(id));
+    
         try {
+            // 3. Update the database in the background
             await axios.patch(`http://localhost:3001/api/toys/${id}`, { 
-                is_favorite: !currentStatus 
+                is_favorite: newStatus 
             });
-            // Update local state so the heart changes color immediately
-            setToys(prev => prev.map(t => t.id === id ? { ...t, is_favorite: !currentStatus } : t));
+            
+            // IMPORTANT: Do NOT call fetchToys() here. 
+            // The local state is already correct!
         } catch (err) {
             console.error("Error updating favorite:", err);
+            // 4. If the server fails, "undo" the change so the user knows
+            setToys(prevToys => 
+                prevToys.map(toy => 
+                    toy.id === id ? { ...toy, is_favorite: currentStatus } : toy
+                )
+            );
+        } finally {
+            setSavingIds(prev => {
+                const next = new Set(prev);
+                next.delete(id);
+                return next;
+            });
         }
     };
-
     if (loading) return <div className='loader'>Loading Lucas's toys...</div>;
 
     return (
@@ -57,6 +92,7 @@ const Home = () => {
             <FilterBar
               statusFilter={statusFilter} setStatusFilter={setStatusFilter}
               categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter}
+              ageFilter={ageFilter} setAgeFilter={setAgeFilter}
               sortBy={sortBy} setSortBy={setSortBy}
               resultsCount={filteredToys.length}
             />
@@ -71,14 +107,14 @@ const Home = () => {
                                   alt={toy.name}
                                 />
                                 {/* Interactive Heart Icon */}
-                                <span className='heart-icon' onClick={() => toggleFavorite(toy.id, toy.is_favorite)}>
+                                <span className='heart-icon' onClick={(e) => toggleFavorite(e, toy.id, toy.is_favorite)}>
                                     {toy.is_favorite ? '❤️' : '🤍'}
                                 </span>
                             </div>
                             <div className='card-info'>
                                 <h3>{toy.name}</h3>
                                 <span className='category-tag'>{toy.category}</span>
-                                <p className='age-range'>Age: {toy.min_age_months}+ months</p>
+                                <p className='age-range'>Age: {Number(toy.min_age)}{toy.max_age ? ` - ${Number(toy.max_age)}` : '+'} years</p>
                                 <button className='detail-btn'>View Details</button>
                             </div>
                         </div>

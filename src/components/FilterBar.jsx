@@ -2,7 +2,8 @@ import './FilterBar.css';
 
 const FilterBar = ({ 
   statusFilter, setStatusFilter, 
-  categoryFilter, setCategoryFilter, 
+  categoryFilter, setCategoryFilter,
+  ageFilter, setAgeFilter,
   sortBy, setSortBy,
   resultsCount 
 }) => {
@@ -21,6 +22,13 @@ const FilterBar = ({
           <option value="Blocks">Blocks</option>
           <option value="Books">Books</option>
           <option value="Art">Art</option>
+        </select>
+
+        <select value={ageFilter} onChange={(e) => setAgeFilter(e.target.value)}>
+          <option value="All">All Toys</option>
+          <option value="1">1 year or younger</option>
+          <option value="2">2 years or younger</option>
+          <option value="3">3 years or younger</option>
         </select>
 
         <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
