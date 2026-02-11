@@ -1,3 +1,4 @@
-const ToyDetail = () => <h1>Toy Details</h1>;
-export default ToyDetail;
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
