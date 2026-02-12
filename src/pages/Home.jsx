@@ -1,13 +1,16 @@
 import { useState, useEffect } from "react";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import './Home.css';
 import FilterBar from "../components/FilterBar";
 
 const Home = () => {
+    const navigate = useNavigate();
+    
     const [toys, setToys] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const [statusFilter, setStatusFilter] = useState('active'); // Default to 'active'
+    const [statusFilter, setStatusFilter] = useState('All'); // Default to 'All'
     const [categoryFilter, setCategoryFilter] = useState('All'); // Default to 'All'
     const [ageFilter, setAgeFilter] = useState('All'); // Default to 'All'
     const [sortBy, setSortBy] = useState('name');              // Default to 'name'
@@ -30,7 +33,7 @@ const Home = () => {
 
     // create fillter logic beased on seletions in the filterbar
     const filteredToys = toys
-        .filter(toy => toy.status === statusFilter)
+        .filter(toy => statusFilter === 'All' ? true : toy.status === statusFilter)
         .filter(toy => categoryFilter === 'All' ? true : toy.category === categoryFilter)
         .filter(toy => ageFilter === 'All' ? true : toy.max_age && parseFloat(toy.max_age) <= parseFloat(ageFilter))
         .sort((a, b) => {
@@ -115,7 +118,7 @@ const Home = () => {
                                 <h3>{toy.name}</h3>
                                 <span className='category-tag'>{toy.category}</span>
                                 <p className='age-range'>Age: {Number(toy.min_age)}{toy.max_age ? ` - ${Number(toy.max_age)}` : '+'} years</p>
-                                <button className='detail-btn'>View Details</button>
+                                <button className='detail-btn' onClick={() => navigate(`/toy/${toy.id}`)}>View Details</button>
                             </div>
                         </div>
                     ))

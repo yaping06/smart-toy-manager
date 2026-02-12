@@ -1,0 +1,258 @@
+/* ToyDetail.css — refined to match your JSX exactly */
+
+.detail-container{
+    padding: 28px 5%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  
+  /* Back link button */
+  .back-link{
+    border: none;
+    background: transparent;
+    color: #2c3e50;
+    font-weight: 800;
+    cursor: pointer;
+    padding: 6px 0 16px 0;
+  }
+  .back-link:hover{ text-decoration: underline; }
+  
+  /* Card + grid */
+  .detail-card{
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  }
+  .detail-grid{
+    display: grid;
+    grid-template-columns: 0.93fr 1.07fr; /* left slightly bigger */
+    align-items: stretch;
+  }
+  
+  /* Image panel */
+  .detail-image-box{
+    background: linear-gradient(180deg, #f7f9fb, #eef2f3);
+    background: white;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .detail-image-box img{
+    width: 100%;
+    max-width: 560px;
+    max-height: 420px;
+    height: auto;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 12px 26px rgba(0,0,0,0.09);
+    display: block;
+  }
+  
+  /* Right content */
+  .detail-content{
+    padding: 28px 30px;
+    text-align: left;
+  }
+  
+  /* Header (category tag + title) */
+  .detail-header{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .detail-header h1{
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: -0.6px;
+    color: #111;
+    line-height: 1.1;
+  }
+  
+  /* Category tag (reused from Home if you like) */
+  .category-tag{
+    background: #f1f3f5;
+    color: #495057;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    letter-spacing: 0.6px;
+    font-weight: 900;
+    text-transform: uppercase;
+    width: fit-content;
+  }
+  
+  /* Stats cards — smaller + not overly wide */
+  .stats-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 14px;
+    margin: 18px 0 12px 0;
+    max-width: 460px; /* prevents huge tiles */
+  }
+  
+  .stat{
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: #f7f9fb;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .stat label{
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #7a8794;
+    font-weight: 900;
+    letter-spacing: 0.5px;
+  }
+  .stat p{
+    margin: 6px 0 0 0;
+    font-size: 1rem;
+    font-weight: 900;
+    color: #1c2430;
+  }
+  
+  /* Optional: highlight sold-for card */
+  .stat.highlight{
+    background: rgba(39, 174, 96, 0.12);
+    border-color: rgba(39, 174, 96, 0.18);
+  }
+  
+  /* Status pill inside the stat */
+  .status-pill{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    width: fit-content;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .status-pill.active{
+    background: rgba(52, 152, 219, 0.14);
+    color: #1f6fa6;
+  }
+  .status-pill.storage{
+    background: rgba(243, 156, 18, 0.16);
+    color: #a76407;
+  }
+  .status-pill.sold{
+    background: rgba(39, 174, 96, 0.16);
+    color: #1d7f49;
+  }
+  
+  /* Action section */
+  .action-bar{
+    margin-top: 12px;
+    padding-top: 16px;
+    border-top: 1px solid #eef1f4;
+  }
+  .action-bar h3{
+    margin: 0 0 10px 0;
+    font-size: 1.05rem;
+    font-weight: 900;
+    color: #111;
+  }
+  
+  /* Buttons row */
+  .btn-group{
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+  }
+  
+  /* Style buttons by class so it NEVER falls back to default */
+  .btn-active,
+  .btn-storage,
+  .btn-sold,
+  .btn-delete{
+    flex: 1;
+    padding: 12px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(0,0,0,0.08);
+    font-weight: 900;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: clamp(0.7rem, 1.2vw, 0.95rem);
+    line-height: 1;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+    text-align: center;
+  }
+  
+  .btn-active:hover,
+  .btn-storage:hover,
+  .btn-sold:hover,
+  .btn-delete:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  }
+  .btn-active:active,
+  .btn-storage:active,
+  .btn-sold:active,
+  .btn-delete:active{
+    transform: translateY(0);
+    box-shadow: none;
+  }
+  
+  .btn-active{ background: #3498db; color: #fff; border-color: transparent; }
+  .btn-storage{ background: #f39c12; color: #fff; border-color: transparent; }
+  .btn-sold{ background: #27ae60; color: #fff; border-color: transparent; }
+  
+  /* Delete: separate + danger */
+  .btn-delete{
+    margin-left: 0;
+    background: #fff;
+    color: #b42318;
+    border: 1px solid rgba(180, 35, 24, 0.35);
+  }
+  .btn-delete:hover{
+    box-shadow: 0 10px 22px rgba(180, 35, 24, 0.12);
+  }
+  
+  /* Footer spacing */
+  .detail-footer{
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* fixes “too close” */
+    color: #5e6b78;
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .detail-footer p{ margin: 0; }
+  .detail-footer a{
+    width: fit-content;
+    color: #2c3e50;
+    font-weight: 900;
+    text-decoration: underline;
+  }
+  
+  /* Responsive */
+  /* Updated Responsive Logic */
+@media (max-width: 950px) {
+    .detail-grid {
+      grid-template-columns: 1fr; /* Forces content UNDER the image */
+    }
+  
+    .detail-image-box {
+      padding: 20px;
+      border-bottom: 1px solid #eef1f4; /* Optional: adds a line between image and text */
+    }
+  
+    .detail-content {
+      padding: 30px 20px; /* Adjusts padding for mobile/stacked view */
+    }
+  
+    .btn-group {
+      flex-wrap: wrap; /* Allows buttons to share rows or stack if needed */
+      justify-content: center;
+    }
+  }

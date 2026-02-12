@@ -2,6 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './AddToy.css';
+import { validateToyData } from '../validationUtils';
 
 const AddToy = () => {
     const navigate = useNavigate();
@@ -22,13 +23,24 @@ const AddToy = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const validation = validateToyData(formData);
+
+        if (!validation.isValid){
+          alert("Validation Errors:\n- " + validation.errors.join("\n- "));
+          return;
+        }
+
+        const  defaultImg = "https://via.placeholder.com/600x600?text=No+Photo+Available";
         try {
             // data conversion
             const dataToSend = {
                 ...formData,
                 min_age_months: parseInt(formData.min_age_months),
                 max_age_months: formData.max_age_months ? parseInt(formData.max_age_months):null,
-                pruchase_price: parseFloat(formData.purchase_price)
+                pruchase_price: parseFloat(formData.purchase_price),
+                image_url: formData.image_url.trim() === "" ? defaultImg : formData.image_url
+
             };
 
             await axios.post('http://localhost:3001/api/toys', dataToSend);
@@ -70,12 +82,12 @@ const AddToy = () => {
               {/* Row 2: Age Limits */}
               <div className="form-row">
                 <div className="form-group">
-                  <label>Min Age (Months)</label>
-                  <input type="number" placeholder='e.g., 24' required onChange={(e) => setFormData({...formData, min_age_months: e.target.value})} />
+                  <label>Min Age (Years)</label>
+                  <input type="number" placeholder='e.g., 24' required onChange={(e) => setFormData({...formData, min_age: e.target.value})} />
                 </div>
                 <div className="form-group">
-                  <label>Max Age (Months)</label>
-                  <input type="number" placeholder='(Optional)' onChange={(e) => setFormData({...formData, max_age_months: e.target.value})} />
+                  <label>Max Age (Year)</label>
+                  <input type="number" placeholder='(Optional)' onChange={(e) => setFormData({...formData, max_age: e.target.value})} />
                 </div>
               </div>
       
