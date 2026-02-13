@@ -10,7 +10,7 @@ const NavigationBar = () => {
             <div className="navbar-links">
                 <Link to="/" className="nav-item">Home</Link>
                 <Link to="/add" className="nav-item">Add New Toy</Link>
-                <Link to="/ideas" className="nav-item">Toy Ideas(AI)</Link>
+                <Link to="/discovery" className="nav-item">Discovery(AI)</Link>
             </div>
         </nav>
     );

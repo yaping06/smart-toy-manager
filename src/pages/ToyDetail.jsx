@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import AgeModal from "../components/AgeModal.jsx";
 import "./ToyDetail.css";
 
 const ToyDetail = () => {
@@ -59,6 +60,34 @@ const ToyDetail = () => {
         }
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [childAge, setChildAge] = useState(""); // You can default this to 2.5
+    const [loading, setLoading] = useState(false);
+    const [aiSuggestion, setAiSuggestion] = useState("");
+
+    const handleAiRequest = async () => {
+        if (!childAge) {
+            alert("Please enter an age.");
+            return;
+        }
+        setIsModalOpen(false); // Close modal
+        setLoading(true);
+  
+        try {
+            const res = await axios.post('http://localhost:3001/api/ai/toy-play-idea', {
+            toyName: toy.name,
+            category: toy.category,
+            age: childAge
+        });
+            setAiSuggestion(res.data.suggestion);
+        } catch (err) {
+            console.error(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+
     if (!toy) return <div className="loader">Loading details...</div>;
 
     return (
@@ -100,6 +129,8 @@ const ToyDetail = () => {
                             )}
                         </div>
 
+                        
+
                         {/* Action Buttons */}
                         <div className="action-bar">
                             <h3>Manage Toy</h3>
@@ -111,6 +142,7 @@ const ToyDetail = () => {
                                 {toy.status !== 'sold' && 
                                     <button onClick={() => handleUpdateStatus('sold')} className="btn-sold">Mark as Sold</button>}
                                 <button onClick={handleDelete} className="btn-delete">Delete Permanently</button>
+                                
                             </div>
                         </div>
 
@@ -120,7 +152,29 @@ const ToyDetail = () => {
                         </div>
                     </div>
                 </div>
+
+                <div className='ai-bar'>
+                    <button onClick={() => setIsModalOpen(true)} className="btn-ai">
+                        {loading ? "Thinking..." : "✨ Get Play Ideas"}
+                    </button>
+
+                    {aiSuggestion && (
+                        <div className="ai-suggestion-card">
+                            <h4>✨ Play Ideas for Lucas ({childAge} yrs)</h4>
+                            <div className="suggestion-text">
+                                 {aiSuggestion}
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
+            <AgeModal 
+                isOpen={isModalOpen} 
+                onClose={() => setIsModalOpen(false)} 
+                onSubmit={handleAiRequest}
+                age={childAge}
+                setAge={setChildAge}
+            />
         </div>
     );
 };

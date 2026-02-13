@@ -116,6 +116,89 @@
     color: #1c2430;
   }
   
+/* Container for the entire AI section */
+.ai-bar {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    padding-top: 24px;
+    border-top: 1px dashed #e2e8f0; /* Separates it from the Manage Toy section */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the button */
+    gap: 20px;
+    width: 100%;
+}
+
+/* The Magic AI Button */
+.btn-ai {
+    background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px; /* Rounded pill shape for a modern look */
+    font-weight: 800;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(168, 85, 247, 0.2);
+}
+
+.btn-ai:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(168, 85, 247, 0.3);
+    opacity: 0.95;
+}
+
+.btn-ai:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* The Suggestion Card */
+.ai-suggestion-card {
+    width: 100%;
+    background: #fdfaff; /* Very light purple tint */
+    border: 1px solid #f3e8ff;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left; /* Text remains left-aligned for readability */
+    animation: slideUp 0.4s ease-out;
+}
+
+.ai-suggestion-card h4 {
+    color: #7e22ce;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.suggestion-text {
+    white-space: pre-wrap; /* CRITICAL: Maintains AI's line breaks and bullet points */
+    line-height: 1.7;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+/* Animation for the suggestion appearing */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+  
+ 
   /* Optional: highlight sold-for card */
   .stat.highlight{
     background: rgba(39, 174, 96, 0.12);

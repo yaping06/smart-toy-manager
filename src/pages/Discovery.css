@@ -1,0 +1,110 @@
+.toy-ideas-container {
+    padding: 28px 5%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.toy-ideas-container h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 32px;
+    letter-spacing: -0.8px;
+    text-align: center;
+
+}
+
+.toy-ideas-container p {
+    color: #5e6b78;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+/* Input Section */
+.age-input-section {
+    background: #fff;
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+    border: 1px solid #eef1f4;
+}
+
+.age-input-section label {
+    font-weight: 900;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    color: #7a8794;
+    letter-spacing: 0.5px;
+}
+
+.age-input-section input {
+    padding: 14px;
+    border-radius: 10px;
+    border: 2px solid #eef1f4;
+    font-size: 1rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.age-input-section input:focus {
+    border-color: #3498db;
+}
+
+.age-input-section button {
+    background: #111;
+    color: #fff;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.age-input-section button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+.age-input-section button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Analysis Results Section */
+.analysis-results {
+    background: linear-gradient(145deg, #f0f9ff, #e0f2fe);
+    border: 1px solid #bae6fd;
+    padding: 30px;
+    border-radius: 20px;
+    animation: slideUp 0.5s ease-out;
+}
+
+.analysis-text {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #0c4a6e;
+    font-weight: 500;
+    white-space: pre-wrap; /* Crucial: Respects AI's line breaks and lists */
+}
+
+/* Professional Animation */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .toy-ideas-container h1 { font-size: 1.8rem; }
+    .analysis-results { padding: 20px; }
+}

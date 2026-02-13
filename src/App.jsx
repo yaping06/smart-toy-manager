@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import AddToy from './pages/AddToy';
 import ToyDetail from './pages/ToyDetail';
 import NavigationBar from './components/NavigationBar';
+import Discovery from "./pages/Discovery";
 
 
 
@@ -15,6 +16,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/add' element={<AddToy />} />
           <Route path='/toy/:id' element={<ToyDetail />} />
+          <Route path='/discovery' element={<Discovery />} />
         </Routes>
       </div>
     </Router>

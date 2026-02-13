@@ -10,6 +10,7 @@ const Home = () => {
     const [toys, setToys] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const [searchName, setSearchName] = useState("");
     const [statusFilter, setStatusFilter] = useState('All'); // Default to 'All'
     const [categoryFilter, setCategoryFilter] = useState('All'); // Default to 'All'
     const [ageFilter, setAgeFilter] = useState('All'); // Default to 'All'
@@ -33,6 +34,7 @@ const Home = () => {
 
     // create fillter logic beased on seletions in the filterbar
     const filteredToys = toys
+        .filter(toy => toy.name.toLowerCase().includes(searchName.toLowerCase()))
         .filter(toy => statusFilter === 'All' ? true : toy.status === statusFilter)
         .filter(toy => categoryFilter === 'All' ? true : toy.category === categoryFilter)
         .filter(toy => ageFilter === 'All' ? true : toy.max_age && parseFloat(toy.max_age) <= parseFloat(ageFilter))
@@ -40,6 +42,8 @@ const Home = () => {
             if (sortBy === 'price') return a.purchase_price - b.purchase_price;
             return a.name.localeCompare(b.name);
         });
+
+    
 
     // Function to handle the interactive heart click
     const toggleFavorite = async (e, id, currentStatus) => {
@@ -89,8 +93,26 @@ const Home = () => {
 
     return (
         <div className='home-page'>
-            <header className='home-header'>
+            <header className='home-header'>  
                 <h1>Lucas's Toy Gallery</h1>
+                <div className="search-container">
+                    <input 
+                        type="text" 
+                        placeholder="Search toys by name..." 
+                        value={searchName}
+                        onChange={(e) => setSearchName(e.target.value)}
+                        className="search-input"
+                    />
+                    {searchName && (
+                      <button 
+                        className="search-clear-x" 
+                        onClick={() => setSearchName("")}
+                        aria-label="Clear search"
+                      >
+                        &times;
+                      </button>
+                    )}
+                </div>              
             </header>
             <FilterBar
               statusFilter={statusFilter} setStatusFilter={setStatusFilter}
@@ -123,7 +145,7 @@ const Home = () => {
                         </div>
                     ))
                 ):(
-                    <p className='empty-msg'>No active toys found. Go to "Add New Toy" to start!</p>
+                    <p className='empty-msg'>No active toys found.</p>
                 )}
             </div>
         </div>

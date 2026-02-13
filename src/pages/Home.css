@@ -8,7 +8,10 @@
   
   .home-header {
     margin-bottom: 22px;
-    text-align: left;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;           
+    gap: 20px;
   }
   
   .home-header h1 {
@@ -17,6 +20,67 @@
     font-weight: 800;
     letter-spacing: -0.5px;
     color: #111;
+    white-space: nowrap; /* Keeps title on one line */
+  }
+
+  .search-container {
+    margin-bottom: 0;
+    width: 100%;
+    max-width: 400px; /* Keeps it from getting too wide on desktop */
+    position: relative
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 12px 40px 12px 20px;
+    border-radius: 12px;
+    border: 1px solid #eef1f4;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .search-clear-x {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #94a3b8;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+  }
+
+  .search-clear-x:hover {
+    color: #1e293b;
+  }
+  
+  .clear-search-btn {
+    margin-top: 12px;
+    background: #f1f5f9;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .search-input:focus {
+    border-color: #3498db;
+    box-shadow: 0 4px 20px rgba(52, 152, 219, 0.15);
+  }
+
+  @media (max-width: 700px) {
+    .home-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
   
   /* GRID: 4 cards desktop -> 3 -> 2 (mobile) */
