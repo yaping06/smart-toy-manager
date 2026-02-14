@@ -104,8 +104,8 @@ const ToyDetail = () => {
                     {/* Info Section */}
                     <div className="detail-content">
                         <div className="detail-header">
-                            <span className="category-tag">{toy.category}</span>
                             <h1>{toy.name} {toy.is_favorite && '❤️'}</h1>
+                            <span className="category-tag">{toy.category}</span>
                         </div>
 
                         <div className="stats-grid">
