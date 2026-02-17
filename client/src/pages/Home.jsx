@@ -128,7 +128,7 @@ const Home = () => {
                         <div key={toy.id} className='toy-card'>
                             <div className='card-image'>
                                 <img
-                                  src={toy.image_url || 'https://via.placeholder.com/300x200?text=No+Photo'}
+                                  src={toy.image_url}
                                   alt={toy.name}
                                 />
                                 {/* Interactive Heart Icon */}

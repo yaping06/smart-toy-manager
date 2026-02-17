@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 import './AddToy.css';
 import { validateToyData } from '../validationUtils';
 
@@ -27,11 +28,11 @@ const AddToy = () => {
         const validation = validateToyData(formData);
 
         if (!validation.isValid){
-          alert("Validation Errors:\n- " + validation.errors.join("\n- "));
+          toast.error("Validation Errors:\n- " + validation.errors.join("\n- "));
           return;
         }
 
-        const  defaultImg = "https://via.placeholder.com/600x600?text=No+Photo+Available";
+        const  defaultImg = "https://placehold.co/600x400?text=No+Photo+Available";
         try {
             // data conversion
             const dataToSend = {
@@ -44,12 +45,12 @@ const AddToy = () => {
             };
 
             await axios.post('http://localhost:3001/api/toys', dataToSend);
-            alert("Toy successfully added!");
+            toast.success("Toy successfully added!");
             // return to the home
             navigate('/');
         } catch (err) {
             console.error("Error saving toy:", err);
-            alert("Error saving toy! Please try again!")
+            toast.error("Failed to add toy! Please try again!")
         }
     };
 

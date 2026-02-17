@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import axios from 'axios';
 import './Discovery.css';
 
@@ -8,7 +9,7 @@ const Discovery = () => {
     const [loading, setLoading] = useState(false);
 
     const getInventoryAnalysis = async () => {
-        if (!age) return alert("Please enter Lucas's age");
+        if (!age) return toast.error("Please enter Lucas's age");
         setLoading(true);
         setAnalysis('');
         try {
@@ -21,6 +22,7 @@ const Discovery = () => {
             
         } catch (err) {
             console.error(err);
+            toast.error("Something went wrong, please try again later.");
         } finally {
             setLoading(false);
         }

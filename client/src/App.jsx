@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from './pages/Home';
 import AddToy from './pages/AddToy';
@@ -10,6 +11,7 @@ import Discovery from "./pages/Discovery";
 function App() {
   return(
     <Router>
+      <Toaster />
       <NavigationBar />
       <div className="container">
         <Routes>

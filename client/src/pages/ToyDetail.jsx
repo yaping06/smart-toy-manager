@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 import axios from "axios";
 import AgeModal from "../components/AgeModal.jsx";
 import "./ToyDetail.css";
@@ -28,7 +29,7 @@ const ToyDetail = () => {
             if (price === null) return;
             soldPrice = parseFloat(price);
             if (isNaN(soldPrice) || soldPrice < 0) {
-                alert("Error: Please enter a valid number (0 or higher) for the sold price.");
+                toast.error("Error: Please enter a valid number (0 or higher) for the sold price.");
                 return;
             }
         }
@@ -44,9 +45,10 @@ const ToyDetail = () => {
                 status: newStatus,
                 sold_price: soldPrice
             }));
+            toast.success(`Toy status changed to ${newStatus}!`);
         } catch (err) { 
             console.error("Update failed:", err);
-            alert("Could not update status. Please try again.")
+            toast.error("Failed to update status. Please try again.")
          }
 
     };
@@ -55,8 +57,12 @@ const ToyDetail = () => {
         if (window.confirm("Delete Lucas's toy permanently?")) {
             try {
                 await axios.delete(`http://localhost:3001/api/toys/${id}`);
+                toast.success("Toy deleted successfully!")
                 navigate('/');
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error(err);
+                toast.error("Failed to delete toy. Please try again!")
+            }
         }
     };
 
@@ -67,7 +73,7 @@ const ToyDetail = () => {
 
     const handleAiRequest = async () => {
         if (!childAge) {
-            alert("Please enter an age.");
+            toast.error("Please enter an age.");
             return;
         }
         setIsModalOpen(false); // Close modal
