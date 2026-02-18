@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('./db');
-// 1. Import the library
+const upload = require('./cloudinaryConfig');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // 2. Initialize the Google Generative AI with your key
@@ -32,9 +32,16 @@ router.get('/toys/:id', async (req, res) => {
 
 
 
-router.post('/toys', async (req, res) => {
+router.post('/toys', upload.single('image'), async (req, res) => {
+    
     try {
-      const { name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite } = req.body;
+      const { name, category, status, min_age, max_age, purchase_price, source_name, source_url, is_favorite } = req.body;
+      const image_url =
+        req.file?.path ||
+        req.file?.secure_url ||
+        req.file?.url ||
+        null;
+      
       const newToy = await db.query(
         'INSERT INTO toys (name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',
         [name, category, status, min_age, max_age, purchase_price, source_name, image_url, source_url, is_favorite]

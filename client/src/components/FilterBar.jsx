@@ -24,6 +24,9 @@ const FilterBar = ({
           <option value="Books">Books</option>
           <option value="Outdoor">Outdoor</option>
           <option value="Art">Art</option>
+          <option value="Pretend Play">Pretend Play</option>
+          <option value="Fine Motor">Fine Motor</option>
+          <option value="Music">Music</option>
           <option value="Other">Other</option>
         </select>
 

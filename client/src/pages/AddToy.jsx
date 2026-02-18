@@ -13,14 +13,17 @@ const AddToy = () => {
         name: '',
         category: 'STEM',
         status: 'active',
-        min_age_months: '',
-        max_age_months: '',
+        min_age: '',
+        max_age: '',
         purchase_price: '',
         source_name: '',
         source_url: '',
-        image_url: '',
         is_favorite: false
     });
+
+    // separate state just for the image file
+    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,25 +35,44 @@ const AddToy = () => {
           return;
         }
 
-        const  defaultImg = "https://placehold.co/600x400?text=No+Photo+Available";
+        // Safety check for the photo
+        if (!file) {
+          toast.error("Please upload a photo of the toy! 📸");
+          return;
+        }
+        setLoading(true);
+
         try {
             // data conversion
-            const dataToSend = {
-                ...formData,
-                min_age_months: parseInt(formData.min_age_months),
-                max_age_months: formData.max_age_months ? parseInt(formData.max_age_months):null,
-                pruchase_price: parseFloat(formData.purchase_price),
-                image_url: formData.image_url.trim() === "" ? defaultImg : formData.image_url
+            const dataToSend = new FormData();
+            
+            // Append all fields from your formData object
+            dataToSend.append("name", formData.name);
+            dataToSend.append("category", formData.category);
+            dataToSend.append("status", formData.status);
+            dataToSend.append("min_age", parseInt(formData.min_age));
+            if (formData.max_age) {
+              dataToSend.append("max_age", parseInt(formData.max_age));
+            }
+            dataToSend.append("purchase_price", parseFloat(formData.purchase_price));
+            dataToSend.append("source_name", formData.source_name);
+            dataToSend.append("source_url", formData.source_url);
+            dataToSend.append("is_favorite", formData.is_favorite);
+            
+            // 4. Append the physical file
+            dataToSend.append("image", file);
 
-            };
-
-            await axios.post('http://localhost:3001/api/toys', dataToSend);
+            await axios.post('http://localhost:3001/api/toys', dataToSend, {
+              headers: { "Content-Type": "multipart/form-data" }
+            });
             toast.success("Toy successfully added!");
             // return to the home
             navigate('/');
         } catch (err) {
             console.error("Error saving toy:", err);
             toast.error("Failed to add toy! Please try again!")
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -70,12 +92,16 @@ const AddToy = () => {
                 <div className="form-group">
                   <label>Category</label>
                   <select onChange={(e) => setFormData({...formData, category: e.target.value})}>
-                    <option value="STEM">STEM</option>
-                    <option value="Blocks">Blocks</option>
-                    <option value="Books">Books</option>
-                    <option value="Outdoor">Ourdoor</option>
-                    <option value="Art">Art</option>
-                    <option value="Other">Other</option>
+                  <option value="All">All Categories</option>
+                  <option value="STEM">STEM</option>
+                  <option value="Blocks">Blocks</option>
+                  <option value="Books">Books</option>
+                  <option value="Outdoor">Outdoor</option>
+                  <option value="Art">Art</option>
+                  <option value="Pretend Play">Pretend Play</option>
+                  <option value="Fine Motor">Fine Motor</option>
+                  <option value="Music">Music</option>
+                  <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
@@ -83,7 +109,7 @@ const AddToy = () => {
               {/* Row 2: Age Limits */}
               <div className="form-row">
                 <div className="form-group">
-                  <label>Min Age (Years)</label>
+                  <label>Min Age (Year)</label>
                   <input type="number" placeholder='e.g., 24' required onChange={(e) => setFormData({...formData, min_age: e.target.value})} />
                 </div>
                 <div className="form-group">
@@ -100,14 +126,19 @@ const AddToy = () => {
                 </div>
                 <div className="form-group">
                   <label>Store Name</label>
-                  <input type="text" placeholder="e.g., Target" onChange={(e) => setFormData({...formData, source_name: e.target.value})} />
+                  <input type="text" placeholder="(Optional)e.g., Target" onChange={(e) => setFormData({...formData, source_name: e.target.value})} />
                 </div>
               </div>
       
               {/* Single Row: Full Width for URL and Image */}
               <div className="form-group">
-                <label>Photo URL</label>
-                <input type="text" placeholder="(Optional) Paste link here" onChange={(e) => setFormData({...formData, image_url: e.target.value})} />
+                <label>Upload Toy Photo</label>
+                <input 
+                    type="file" 
+                    accept="image/*" 
+                    required
+                    onChange={(e) => setFile(e.target.files[0])} 
+                />
               </div>
       
               <div className="form-group">
@@ -115,7 +146,9 @@ const AddToy = () => {
                 <input type="url" placeholder="(Optional) https://..." onChange={(e) => setFormData({...formData, source_url: e.target.value})} />
               </div>
       
-              <button type="submit" className="submit-btn">Save Toy</button>
+              <button type="submit" className="submit-btn" disabled={loading}>
+                  {loading ? "Uploading..." : "Save Toy"}
+              </button>
             </form>
           </div>
         </div>

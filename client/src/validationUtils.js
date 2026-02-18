@@ -9,7 +9,7 @@ export const validateToyData = (data) => {
     }
 
     // 2. Age logic: Min must be less than or equal to Max
-    const min = Number(data.min_age);
+    const min = Number(data.min_age.trim());
     const max = data.max_age ? Number(data.max_age) : null;
 
     if (isNaN(min) || min < 0) {
@@ -25,10 +25,6 @@ export const validateToyData = (data) => {
         errors.push("Purchase price must be 0 or greater.");
     }
 
-    // 4. URL check (Optional): Basic structure check
-    if (data.image_url && data.image_url.trim() !== "" && !data.image_url.startsWith('http')) {
-        errors.push("Image URL must be a valid link starting with 'http'.");
-    }
 
     return {
         isValid: errors.length === 0,
