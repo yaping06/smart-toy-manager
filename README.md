@@ -1,16 +1,79 @@
-# React + Vite
+🧸 Lucas's Toy Manager
+A full-stack inventory application built to track and organize toys for my son, Lucas. This project serves as a practical tool for developmental tracking and a showcase of full-stack engineering principles, including handling complex media transformations and relational data.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+📽️ Watch the Video Demo
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+🚀 Key Features
+Smart Inventory Management: Full CRUD (Create, Read, Update, Delete) capabilities allowing for the addition and real-time editing of toy records.
 
-## React Compiler
+AI-Powered Play Strategist: Integrated Google Gemini AI to analyze the entire toy inventory and generate creative play ideas or developmental suggestions based on Lucas's current collection.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+iOS-Optimized Image Pipeline: Specialized handling for iPhone photos that automatically converts HEIC uploads into browser-friendly JPEGs, ensuring a seamless gallery experience.
 
-## Expanding the ESLint configuration
+Interactive Favorites: A "One-Click Favorite" system that allows parents to quickly highlight Lucas's most-loved toys for easy access.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Advanced Dynamic Filtering: A robust filtering system that enables users to instantly sort the collection by category (STEM, Art, Blocks), age range, or current status or search by toy name.
+
+Developmental Insights: Tracks metadata such as minimum and maximum age ranges to help ensure toys remain age-appropriate as Lucas grows.
+
+
+🛠️ Technical Stack
+Frontend: React.js with Axios for state management and API communication.
+
+Backend: Node.js and Express.js REST API.
+
+Database: PostgreSQL for robust relational data storage.
+
+Cloud Infrastructure: Multer and Cloudinary for secure, scalable image hosting and transformation.
+
+🧠 Engineering Highlights
+Cloud-Synced Gallery: Securely hosts all toy photography on Cloudinary, ensuring the local database stays lightweight while providing high-speed image delivery.
+
+HEIC-to-JPG Transformation: Engineered a backend override to handle iOS-specific media, forcing Cloudinary to serve compatible JPEG versions even when .heic files are uploaded.
+
+LLM Integration (Gemini): Built a custom prompt-engineering layer to feed inventory metadata into the Gemini API, generating context-aware play ideas tailored to Lucas's toy collection.
+
+Stateful Favorite Toggle: Implemented an optimized boolean update system in PostgreSQL to allow instant "Favoriting" with immediate UI state reflection.
+
+Client-Side Data Validation: Developed a comprehensive frontend validation layer to sanitize user inputs, ensuring price and age data are correctly formatted before they ever reach the API.
+
+🔮 Possible Future Enhancements
+
+Authentication (multiple users)
+
+Analytics on toy usage
+
+Reminder system for age transitions
+
+📦 Installation & Setup
+1. Clone the repository
+
+git clone <your-repo-link>
+cd lucas-toy-manager
+
+2. Backend Setup
+Navigate to the server folder: cd server.
+
+Install dependencies: npm install.
+
+Create a .env file and add your credentials:
+
+Code snippet
+
+DB_USER=your_user
+DB_PASSWORD=your_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=toy_inventory
+CLOUDINARY_CLOUD_NAME=your_name
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+Start the server: npm start.
+
+3. Frontend Setup
+Navigate to the client folder: cd ../client.
+
+Install dependencies: npm install.
+
+Start the development server: npm run dev.
