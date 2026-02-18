@@ -1,10 +1,11 @@
-🧸 Lucas's Toy Manager
+## 🧸  Lucas's Toy Manager
 A full-stack inventory application built to track and organize toys for my son, Lucas. This project serves as a practical tool for developmental tracking and a showcase of full-stack engineering principles, including handling complex media transformations and relational data.
 
-📽️ Watch the Video Demo
+## 📽️  Watch the Video Demo
 
 
-🚀 Key Features
+## 🚀  Key Features
+
 Smart Inventory Management: Full CRUD (Create, Read, Update, Delete) capabilities allowing for the addition and real-time editing of toy records.
 
 AI-Powered Play Strategist: Integrated Google Gemini AI to analyze the entire toy inventory and generate creative play ideas or developmental suggestions based on Lucas's current collection.
@@ -18,7 +19,8 @@ Advanced Dynamic Filtering: A robust filtering system that enables users to inst
 Developmental Insights: Tracks metadata such as minimum and maximum age ranges to help ensure toys remain age-appropriate as Lucas grows.
 
 
-🛠️ Technical Stack
+## 🛠️  Technical Stack
+
 Frontend: React.js with Axios for state management and API communication.
 
 Backend: Node.js and Express.js REST API.
@@ -27,7 +29,8 @@ Database: PostgreSQL for robust relational data storage.
 
 Cloud Infrastructure: Multer and Cloudinary for secure, scalable image hosting and transformation.
 
-🧠 Engineering Highlights
+## 🧠  Engineering Highlights
+
 Cloud-Synced Gallery: Securely hosts all toy photography on Cloudinary, ensuring the local database stays lightweight while providing high-speed image delivery.
 
 HEIC-to-JPG Transformation: Engineered a backend override to handle iOS-specific media, forcing Cloudinary to serve compatible JPEG versions even when .heic files are uploaded.
@@ -38,7 +41,7 @@ Stateful Favorite Toggle: Implemented an optimized boolean update system in Post
 
 Client-Side Data Validation: Developed a comprehensive frontend validation layer to sanitize user inputs, ensuring price and age data are correctly formatted before they ever reach the API.
 
-🔮 Possible Future Enhancements
+## 🔮  Possible Future Enhancements
 
 Authentication (multiple users)
 
@@ -46,21 +49,26 @@ Analytics on toy usage
 
 Reminder system for age transitions
 
-📦 Installation & Setup
-1. Clone the repository
+📦 ## Installation & Setup
 
+### 1. Clone the repository
+
+```bash
 git clone <your-repo-link>
 cd lucas-toy-manager
+```
 
-2. Backend Setup
-Navigate to the server folder: cd server.
+### 2. Backend Setup
 
-Install dependencies: npm install.
+```bash
+cd server
+npm install
+npm start
+```
 
-Create a .env file and add your credentials:
+Ensure server has a .env file with your credentials:
 
-Code snippet
-
+```bash
 DB_USER=your_user
 DB_PASSWORD=your_password
 DB_HOST=localhost
@@ -69,11 +77,15 @@ DB_NAME=toy_inventory
 CLOUDINARY_CLOUD_NAME=your_name
 CLOUDINARY_API_KEY=your_key
 CLOUDINARY_API_SECRET=your_secret
-Start the server: npm start.
+```
 
-3. Frontend Setup
-Navigate to the client folder: cd ../client.
 
-Install dependencies: npm install.
+## 3. Frontend Setup
 
-Start the development server: npm run dev.
+in a new terminal:
+
+```bash
+cd client
+npm install
+npm run dev
+```
