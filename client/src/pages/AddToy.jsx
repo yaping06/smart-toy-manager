@@ -110,11 +110,11 @@ const AddToy = () => {
               <div className="form-row">
                 <div className="form-group">
                   <label>Min Age (Year)</label>
-                  <input type="number" placeholder='e.g., 24' required onChange={(e) => setFormData({...formData, min_age: e.target.value})} />
+                  <input type="number" step='0.1' placeholder='e.g., 2' required onChange={(e) => setFormData({...formData, min_age: e.target.value})} />
                 </div>
                 <div className="form-group">
                   <label>Max Age (Year)</label>
-                  <input type="number" placeholder='(Optional)' onChange={(e) => setFormData({...formData, max_age: e.target.value})} />
+                  <input type="number" step='0.1' placeholder='(Optional)' onChange={(e) => setFormData({...formData, max_age: e.target.value})} />
                 </div>
               </div>
       
