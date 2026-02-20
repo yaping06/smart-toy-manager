@@ -3,6 +3,8 @@ A full-stack inventory application built to track and organize toys for my son, 
 
 ## 📽️  Watch the Video Demo
 
+https://drive.google.com/file/d/1eAQ_BDE9u86lr4BRa888CYincp5K1aGc/view?usp=drive_link
+
 
 ## 🚀  Key Features
 
@@ -49,12 +51,12 @@ Analytics on toy usage
 
 Reminder system for age transitions
 
-📦 ## Installation & Setup
+## 📦  Installation & Setup
 
 ### 1. Clone the repository
 
 ```bash
-git clone <your-repo-link>
+git clone https://github.com/yaping06/smart-toy-manager.git
 cd lucas-toy-manager
 ```
 
